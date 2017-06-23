@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Relative positioning of geospatial data</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+	<style>
+		#map {
+			width: 1500px;
+			height: 1200px;
+		}
+	</style>
+
+
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+
+    'use strict'
+
+    var start_scale = 15;
+	var map = L.map('map').setView([62.32, 16.53], start_scale);
+	var thematic_layer;
+    $('#map').css('width', window.innerWidth);
+    $('#map').css('height', window.height);
+	L.tileLayer.wms('https://lmwms.gis.lu.se/topowebb.aspx?', {
+	    layers:'topowebbkartan'
+
+	}).addTo(map);// for topographic maps
+
+	L.tileLayer.wms('https://lmwms.gis.lu.se/cadastral.aspx?', {
+	    layers:'granser_kvalitet',
+        transparent: 'true',
+        format: 'image/png'
+
+	}).addTo(map);// for cadastral maps
+    L.control.scale().addTo(map);
+
+    var GeoJsonStyle = function (feature) {
+        return {
+            color: '#5642f4',
+            weight: 2,
+            fillOpacity: 0.15,
+            fillColor: '#d941f4',
+        }
+    }
+
+    $.get('/',{zoom_level : start_scale},
+                function (data, textStatus)
+                {
+                    var thematic_geojson_layer = L.geoJson(JSON.parse(data), {
+                        style: GeoJsonStyle,
+                        onEachFeature: onEachFeature});
+                    thematic_geojson_layer.addTo(map);
+                    thematic_layer = thematic_geojson_layer
+                }
+            )
+
+
+    map.on('zoom ', function (evt) {
+        thematic_layer.remove();
+        console.log(evt.target._zoom)
+
+        $.get('/',{zoom_level : evt.target._zoom},
+        function (data, textStatus) {
+
+            thematic_layer = L.geoJson(JSON.parse(data),
+                {
+                    style: GeoJsonStyle
+                });
+            thematic_layer.addTo(map)
+        })
+    })
+
+
+	function onEachFeature(feature, layer) {
+
+		if (feature.properties) {
+		    console.log(feature.properties)
+			layer.bindPopup(JSON.stringify(feature.properties));
+		}
+	}
+
+	var resized = function () {
+        $('#map').css('width', window.innerWidth);
+        $('#map').css('height', window.innerHeight);
+    }
+
+	$(window).on('resize',resized)
+
+
+</script>
+
+</body>
+</html>
