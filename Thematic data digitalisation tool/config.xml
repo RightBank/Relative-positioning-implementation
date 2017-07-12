@@ -1,0 +1,31 @@
+<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Name>Create and Link Thematic Data</Name><AddInID>{a35dbf78-57d6-479f-875b-adc94db9988e}</AddInID><Description>Create geometries of thematic data and link them with base map</Description><Version>0.1</Version><Image /><Author>Haiqi Xu</Author><Company>Untitled</Company><Date>05/25/2017</Date><Targets><Target name="Desktop" version="10.1" /></Targets><AddIn language="PYTHON" library="Digitool_addin.py" namespace="Digitool_addin"><ArcMap>
+    <Commands>
+        <Button caption="Working Directory" category="Create and Link Thematic Data" class="Workpath" id="Digitool_addin.workpath" image="" message="New or choose a folder as current working directory." tip=""><Help heading="" /></Button>
+        <ComboBox caption="Select Layer" category="Create and Link Thematic Data" class="SelectLayer" id="Digitool_addin.SelectLayer" itemSizeString="WWWWWW" message="Select the layer which contains the feature of interest." rows="4" sizeString="WWWWWW" tip=""><Help heading="" /></ComboBox>
+        <Tool caption="Select Background Feature" category="Create and Link Thematic Data" class="SelectBackgroundFeature" id="Digitool_addin.BackFeature" image="" message="Select a feature and read URI of it." tip=""><Help heading="" /></Tool>
+        <Tool caption="Start Point" category="Create and Link Thematic Data" class="SPoint" id="Digitool_addin.SPoint" image="" message="Click on a background feature to create a start point." tip="Create a start point"><Help heading="" /></Tool>
+        <Tool caption="End Point" category="Create and Link Thematic Data" class="EPoint" id="Digitool_addin.EPoint" image="" message="Click on a background feature to create an end point." tip=""><Help heading="" /></Tool>
+        <Button caption="Clockwise" category="Create and Link Thematic Data" class="Clockwise" id="Digitool_addin.Clockwise" image="" message="Save the clockwise arc between the start point and end point." tip=""><Help heading="" /></Button>
+        <Button caption="Anticlockwise" category="Create and Link Thematic Data" class="Anticlockwise" id="Digitool_addin.Anticlockwise" image="" message="Save the anticlockwise arc between the start point and end point." tip=""><Help heading="" /></Button>
+        <Tool caption="Line" category="Create and Link Thematic Data" class="Line" id="Digitool_addin.Line" image="" message="Draw a line feature." tip=""><Help heading="" /></Tool>
+        <Tool caption="Polygon" category="Create and Link Thematic Data" class="Polygon" id="Digitool_addin.Polygon" image="" message="Draw a polygon feature." tip=""><Help heading="" /></Tool>
+        <Button caption="Start" category="Create and Link Thematic Data" class="StartRing" id="Digitool_addin.startring" image="" message="Start to create interior ring" tip=""><Help heading="" /></Button>
+        <Button caption="Next Ring" category="Create and Link Thematic Data" class="NextRing" id="Digitool_addin.nextring" image="" message="Finish creating current interior ring and move on the next" tip=""><Help heading="" /></Button>
+        <Button caption="Quit" category="Create and Link Thematic Data" class="QuitRing" id="Digitool_addin.quitring" image="" message="Stop creating interior ring" tip=""><Help heading="" /></Button>
+        <Button caption="Next Feature" category="Create and Link Thematic Data" class="NextFeature" id="Digitool_addin.Nextfeature" image="" message="Finish editing the current feature and move to the next one" tip=""><Help heading="" /></Button>
+        <Button caption="All Feature" category="Create and Link Thematic Data" class="AllFeature" id="Digitool_addin.Allfeature" image="" message="Print all the thematic feature in Python window" tip=""><Help heading="" /></Button>
+        <Button caption="Delete Segment" category="Create and Link Thematic Data" class="DeleteSegment" id="Digitool_addin.DeleteSegment" image="" message="Delete the latest thematic segment" tip=""><Help heading="" /></Button>
+        <Button caption="Delete Feature" category="Create and Link Thematic Data" class="DeteleFeature" id="Digitool_addin.DeteleFeature" image="" message="Delete the latest thematic feature" tip=""><Help heading="" /></Button>
+        <Button caption="Export to RDF" category="Create and Link Thematic Data" class="ExportToRdf" id="Digitool_addin.Exportrdf" image="" message="Create RDF triples for all the features user created" tip="Create RDF triples"><Help heading="" /></Button>
+        </Commands>
+    <Extensions>
+        </Extensions>
+    <Toolbars>
+        <Toolbar caption="Create and Link Thematic Data" category="Create and Link Thematic Data" id="Digitool_addin.toolbar" showInitially="true"><Items><Button refID="Digitool_addin.workpath" /><ComboBox refID="Digitool_addin.SelectLayer" /><Tool refID="Digitool_addin.BackFeature" /><Tool refID="Digitool_addin.SPoint" /><Tool refID="Digitool_addin.EPoint" /><Menu refID="Digitool_addin.menu" /><Tool refID="Digitool_addin.Line" /><Tool refID="Digitool_addin.Polygon" /><Menu refID="Digitool_addin.menu_1" /><Button refID="Digitool_addin.Nextfeature" /><Button refID="Digitool_addin.Allfeature" /><Menu refID="Digitool_addin.menu_2" /><Button refID="Digitool_addin.Exportrdf" /></Items></Toolbar>
+        </Toolbars>
+    <Menus>
+        <Menu caption="Vertices Direction" category="Create and Link Thematic Data" id="Digitool_addin.menu" isRootMenu="false" isShortcutMenu="false" separator="false"><Items><Button refID="Digitool_addin.Clockwise" /><Button refID="Digitool_addin.Anticlockwise" /></Items></Menu>
+        <Menu caption="Interior Ring" category="Create and Link Thematic Data" id="Digitool_addin.menu_1" isRootMenu="false" isShortcutMenu="false" separator="false"><Items><Button refID="Digitool_addin.startring" /><Button refID="Digitool_addin.nextring" /><Button refID="Digitool_addin.quitring" /></Items></Menu>
+        <Menu caption="Delete" category="Create and Link Thematic Data" id="Digitool_addin.menu_2" isRootMenu="false" isShortcutMenu="false" separator="false"><Items><Button refID="Digitool_addin.DeleteSegment" /><Button refID="Digitool_addin.DeteleFeature" /></Items></Menu>
+        </Menus>
+    </ArcMap></AddIn></ESRI.Configuration>
