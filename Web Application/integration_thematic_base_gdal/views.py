@@ -13,26 +13,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-from django.http import HttpResponse
-from Web_App_Entrance import Get_Geojson_Generated_Feature
 import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render
-from Static_Vars import *
-import rdflib
+
+from Web_App_Entrance import Get_Geojson_Regenerated_Feature
 
 
 def web_map(request):
 
     dp1 = datetime.datetime.now()
-    g = rdflib.Graph()
-    g.parse(RDF_file_path_thematic, format='n3')
-    g.parse(RDF_file_path_base, format='n3')
 
     try:
         if request.GET:
             print request.get_raw_uri()
-            zoom_level = int(request.GET['zoom_level'])
-            geojson = Get_Geojson_Generated_Feature(g, zoom_level, 4326)
+            zoom_scale = float(request.GET['zoom_scale'])
+            geojson = Get_Geojson_Regenerated_Feature(zoom_scale, 4326)
             dp2 = datetime.datetime.now()
             elapsed_time = dp2 - dp1
             print str(elapsed_time.total_seconds())
@@ -41,7 +38,7 @@ def web_map(request):
 
     except:
         pass
-
     data = {'data': str('')}
     return render(request, r'integration_thematic_base_gdal/map.html', data)
+
 

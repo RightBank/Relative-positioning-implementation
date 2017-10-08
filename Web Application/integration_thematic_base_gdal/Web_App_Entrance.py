@@ -20,29 +20,32 @@ Created on Nov 18, 2016
 """
 
 
-from Key_Procedures import *
+from integration_thematic_base_gdal.Key_Steps import *
+from Static_Vars import *
 
 
-def Get_Geojson_Generated_Feature(g, scale, CRS):
+def Get_Geojson_Regenerated_Feature(scale, CRS):
 
     geomcol = ogr.Geometry(ogr.wkbGeometryCollection)
 
-    thematic_features = LookingUpAllThematicFeature(g)
+    thematic_features = LookingUpAllThematicFeature(endpoint_stardog, username_stardog, password_stardog)
 
     for thematic_feature in thematic_features:
 
-        segment_collection_without_hosting_geometry = GetSegmentInfoCollection(g, thematic_feature)
+        segment_collection_without_hosting_geometry = GetSegmentInfoCollection(endpoint_stardog, thematic_feature,
+                                                                               username_stardog, password_stardog)
 
-        segment_info_collection = GetHostingFeatureGeom(g, segment_collection_without_hosting_geometry, scale)
+        segment_info_collection = GetHostingFeatureGeom(endpoint_stardog, segment_collection_without_hosting_geometry,
+                                                        scale,
+                                                        username_stardog, password_stardog)
 
-        segment_info_collection_with_arcs_for_regeneration = GetArcsOfGeneratedFeature(segment_info_collection)
+        segment_info_collection_with_arcs_for_regeneration = GetArcsofRegeneratedFeature(segment_info_collection)
 
         pruned_segments = EliminatingIntersections(segment_info_collection_with_arcs_for_regeneration)
 
         reprojected_geometry = AssemblyAndCRSTransformation(pruned_segments, CRS)
 
         geomcol.AddGeometry(reprojected_geometry)
-
     geojson = ExporttoJson(geomcol)
 
     return geojson

@@ -60,15 +60,15 @@ def RemoveCRS (WKT_string):
     return str(WKT_string).split('\n')[1]
 
 
-def PointOnLineSegment (point, vertex1, vertex2):
+def PointOnLineSegment (point, vertice1, vertice2):
     """The function judges if the foot of perpendicular is situated on a line segment, for general purpose, it could
     return if a point is located on a line segment"""
     xp = point.X
     yp = point.Y
-    xv1 = vertex1.X
-    yv1 = vertex1.Y
-    xv2 = vertex2.X
-    yv2 = vertex2.Y
+    xv1 = vertice1.X
+    yv1 = vertice1.Y
+    xv2 = vertice2.X
+    yv2 = vertice2.Y
 
     return (xp <= max([xv1, xv2])) and (xp >= min([xv1, xv2])) and \
            (yp >= min([yv1, yv2])) and (yp <= max([yv1, yv2]))
@@ -94,37 +94,91 @@ def GetGeomLonelyPart(graph, lonely_part_URI):
     return ogr.CreateGeometryFromWkt(lonely_part_wkt)
 
 
-def GeometryforBackgroundFeature (graph, background_feature_uri, vertex_order, scale_URI):
-    """This function returns, in a graph, the geometry of the feature which hosts a certain part of the geometry
-        NOTE! the scale argument here should be in the format of predict in SPARQL query language"""
+def GeometryforClosestScaleRange (endpoint, background_feature_uri, vertice_order, scale,
+                                  username=None, password=None):
+    """This function serves the retrieval of geometries of cadastral lines"""
+    geom_query_body = '''
+                SELECT ?wkt
+                    WHERE
+                    { <%s> ?p ?geom.
+                    {
+                    select (max(?ub) as ?max)
+                       where{
+                         <%s> ?p ?geom.
+                         ?p rdfs:subPropertyOf geosparql:hasGeometry.
+                         ?p base_map:hasScale ?scale.
+                         ?scale base_map:hasUpperBound ?ub.
+                         }
+                    }
 
-    geom = graph.query('''
-        SELECT ?wkt
-            WHERE
-            { <%s> %s ?geom.
-             ?geom geosparql:asWKT ?wkt
-            }
-    ''' % (background_feature_uri, scale_URI)
-    )
+                    ?p base_map:hasScale ?scale.
+                    ?scale base_map:hasUpperBound ?max.
+                     ?geom geosparql:asWKT ?wkt
+
+                    filter (?max < %s) 
+                    }
+
+            ''' % (background_feature_uri, background_feature_uri, scale)
+    geom = SparqlQueryToTripleStore(endpoint=endpoint, query_body=geom_query_body,
+                                    username=username, password=password)
+    # print background_feature_uri, scale_URI
     try:
-        backg_geom = ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0]['wkt'])))
+        backg_geom = ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0][rdflib.term.Variable(u'wkt')])))
     except IndexError:
         return None
     geom_type = backg_geom.GetGeometryName()
-    # If the feature in this scale is multi-parts
+    if geom_type == 'GEOMETRYCOLLECTION':
+        geom_lst = []
+        for row in backg_geom:
+            geom_lst.append(row)
+
+        return CombineSegmentsforABackgFeature(geom_lst, vertice_order)
+    else:
+        try:
+            return ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0][rdflib.term.Variable(u'wkt')])))
+        except:
+            raise ValueError('invalid WKT')
+
+
+def GeometryforBackgroundFeature (endpoint, background_feature_uri, vertice_order, scale,
+                                  username=None, password=None):
+    """This function returns, in a graph, the geometry of the feature which hosts a certain part of the geometry
+        NOTE! the scale argument here should be in the format of predict in SPARQL query language"""
+
+    geom_query_body = '''
+        SELECT ?wkt
+            WHERE
+            { <%s> ?p ?geom.
+            ?p rdfs:subPropertyOf geosparql:hasGeometry.
+            ?p base_map:hasScale ?scale.
+            ?scale base_map:hasUpperBound ?ub.
+            ?scale base_map:hasLowerBound ?lb.
+             ?geom geosparql:asWKT ?wkt
+             FILTER (?ub >= %s && ?lb < %s)
+            }
+    ''' % (background_feature_uri, scale, scale)
+    geom = SparqlQueryToTripleStore(endpoint=endpoint, query_body=geom_query_body,
+                                    username=username, password=password)
+    # print background_feature_uri, scale_URI
+    try:
+        backg_geom = ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0][rdflib.term.Variable(u'wkt')])))
+
+    except IndexError:
+        return None
+    geom_type = backg_geom.GetGeometryName()
     if geom_type == 'GEOMETRYCOLLECTION':
         geom_lst = []
         for row in backg_geom:
 
             geom_lst.append(row)
 
-        return CombineSegmentsforABackgFeature(geom_lst, vertex_order)
-    # If this feature in this scale only has one part
+        return CombineSegmentsforABackgFeature(geom_lst, vertice_order)
     else:
         try:
-            return ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0]['wkt'])))
+            return ogr.CreateGeometryFromWkt(RemoveCRS(str(geom.bindings[0][rdflib.term.Variable(u'wkt')])))
         except:
             raise ValueError('invalid WKT')
+
 
 
 def GetClosestPointofGeomtoPoint (point, geometry):
@@ -148,19 +202,19 @@ def GetClosestPointofGeomtoPoint (point, geometry):
     return closest_point
 
 
-def CombineSegmentsforABackgFeature(part_geometry, vertex_order):
+def CombineSegmentsforABackgFeature(part_geometry, vertice_order):
     """The function for combining several sub-segments into one polyline feature"""
     combined_line = ogr.Geometry(ogr.wkbLineString)
     for i in xrange(0, len(part_geometry)):
         if part_geometry[i].GetGeometryName() == 'LINESTRING':
             for pnt in part_geometry[i].GetPoints():
+            # for j in xrange(0, part_geometry[i].GetPointCount()):
                 combined_line. AddPoint_2D(*pnt)
         if part_geometry[i].GetGeometryName() == 'POLYGON':
             if (i > 0) & (i < len(part_geometry)-1):
 
                 for j in xrange(0, part_geometry[i].GetGeometryCount()):
-                    # Note! If it's the interior rings composing
-                    # parts of background feature, then it hasn't been supported
+                    # TODO here should be a comparision of the diatances between different rings to the point
 
                     # last means the last point of previous line, fiest means the first point of next line
                     lastX = part_geometry[i - 1].GetPoint_2D(part_geometry[i - 1].GetPointCount() - 1)[0]
@@ -173,7 +227,7 @@ def CombineSegmentsforABackgFeature(part_geometry, vertex_order):
                     closest_pre = GetClosestPointofGeomtoPoint([lastX, lastY], ring_geom)
                     closest_aft = GetClosestPointofGeomtoPoint([firstX, firstY], ring_geom)
                     # assemble the geometry according to the closest points
-                    if vertex_order == 'Inverse':
+                    if vertice_order == 'Inverse':
 
                         if closest_pre.index < closest_aft.index:
                             for k in xrange(closest_pre.index, closest_aft.index + 1):
@@ -194,8 +248,32 @@ def CombineSegmentsforABackgFeature(part_geometry, vertex_order):
                                 combined_line. AddPoint_2D(*ring_geom.GetPoint_2D(k))
 
             else:
-                # If the first or last component of the multi-part
-                # background feature is polygon, then it hasn't been supported.
+                # TODO This part will be added later on, this is for the cases that the polygon is the first or last component
                 pass
-
+    #combined_line = arcpy.Polyline(geoArray)
     return combined_line
+
+
+from urllib2 import Request, urlopen, base64
+import urllib
+from rdflib.plugins.sparql.results import csvresults
+import io
+
+def SparqlQueryToTripleStore (endpoint, query_body,username = None, password = None):
+    """This function sends SPARQL query to a triple store' endpoint and return results in results format of RDFLib"""
+    query = query_body
+    values = urllib.urlencode({'query': query})
+    headers = {
+        'Accept': 'text/csv'
+    }
+    request = Request(endpoint, data=values, headers=headers)
+    base64string = base64.b64encode('%s:%s' % (username, password))  # for authentication of endpoint
+    request.add_header("Authorization", "Basic %s" % base64string)
+    response_body = urlopen(request).read()
+
+    f = io.BytesIO(response_body)
+    csv_parser = csvresults.CSVResultParser()
+    results = csv_parser.parse(f)
+
+    return results
+

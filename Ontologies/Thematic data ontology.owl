@@ -100,6 +100,9 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <Class IRI="#Thematic_Component"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasOrigin"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Independent_Component"/>
     </Declaration>
     <Declaration>
@@ -137,6 +140,10 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <Class IRI="#Thematic_Feature"/>
         <Class abbreviatedIRI="geosparql:Feature"/>
     </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasOrigin"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#endsAt"/>
         <Class IRI="#Matched_Component"/>
@@ -146,11 +153,19 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <Class IRI="#Thematic_Feature"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasOrigin"/>
+        <Class IRI="#Independent_Component"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#startsAt"/>
         <Class IRI="#Thematic_Component"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#endsAt"/>
+        <Class IRI="http://www.opengis.net/ont/sf#Point"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasOrigin"/>
         <Class IRI="http://www.opengis.net/ont/sf#Point"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
@@ -490,6 +505,11 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasComponent</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">For connecting thematic feature with its components.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#hasOrigin</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property connects an independent component with the origin used in its relative coordinates. The origin is the same as the last vertex of the pervious matched component.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

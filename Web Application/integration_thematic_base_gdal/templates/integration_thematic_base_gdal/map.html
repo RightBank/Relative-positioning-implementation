@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>Relative positioning of geospatial data</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
 	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
@@ -23,27 +25,31 @@
 
 <div id='map'></div>
 
+
+
 <script>
 
     'use strict'
 
     var start_scale = 15;
 	var map = L.map('map').setView([62.32, 16.53], start_scale);
+	var scale_denominator = GetScaleDenominator();
 	var thematic_layer;
     $('#map').css('width', window.innerWidth);
     $('#map').css('height', window.height);
-	L.tileLayer.wms('https://lmwms.gis.lu.se/topowebb.aspx?', {
+	L.tileLayer.wms('{the WMS URL here}', {
 	    layers:'topowebbkartan'
 
 	}).addTo(map);// for topographic maps
 
-	L.tileLayer.wms('https://lmwms.gis.lu.se/cadastral.aspx?', {
+	L.tileLayer.wms('{the WMS URL here}', {
 	    layers:'granser_kvalitet',
         transparent: 'true',
         format: 'image/png'
 
 	}).addTo(map);// for cadastral maps
     L.control.scale().addTo(map);
+
 
     var GeoJsonStyle = function (feature) {
         return {
@@ -54,23 +60,26 @@
         }
     }
 
-    $.get('/',{zoom_level : start_scale},
+    $.get('/',{zoom_scale : scale_denominator},
                 function (data, textStatus)
                 {
                     var thematic_geojson_layer = L.geoJson(JSON.parse(data), {
                         style: GeoJsonStyle,
                         onEachFeature: onEachFeature});
+
                     thematic_geojson_layer.addTo(map);
-                    thematic_layer = thematic_geojson_layer
+                    thematic_layer = thematic_geojson_layer;
+                    console.log(scale_denominator)
                 }
             )
 
-
     map.on('zoom ', function (evt) {
         thematic_layer.remove();
+        var scale_denominator = GetScaleDenominator();
+        console.log(scale_denominator)
         console.log(evt.target._zoom)
 
-        $.get('/',{zoom_level : evt.target._zoom},
+        $.get('/',{zoom_scale : scale_denominator},
         function (data, textStatus) {
 
             thematic_layer = L.geoJson(JSON.parse(data),
@@ -78,9 +87,40 @@
                     style: GeoJsonStyle
                 });
             thematic_layer.addTo(map)
+
+
         })
     })
 
+    function GetScaleDenominator () {
+{#        get the metre per pixel #}
+        var y = map.getSize().y,
+            x = map.getSize().x;
+        var maxMeters = map.containerPointToLatLng([0, y])
+                        .distanceTo( map.containerPointToLatLng([x,y]));
+        var MeterPerPixel = maxMeters/x ;
+        {#        get the dpi #}
+
+
+        var ScaleDenpminator = MeterPerPixel * get_dpi()[0] /  0.0254;
+        return ScaleDenpminator;
+    }
+    function get_dpi (){
+        var arrDPI = new Array();
+        if (window.screen.deviceXDPI != undefined) {
+            arrDPI[0] = window.screen.deviceXDPI;
+            arrDPI[1] = window.screen.deviceYDPI;
+                }
+        else {
+            var tmpNode = document.createElement("DIV");
+            tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+            document.body.appendChild(tmpNode);
+            arrDPI[0] = parseInt(tmpNode.offsetWidth);
+            arrDPI[1] = parseInt(tmpNode.offsetHeight);
+            tmpNode.parentNode.removeChild(tmpNode);}
+
+        return arrDPI;
+                    }
 
 	function onEachFeature(feature, layer) {
 
@@ -96,7 +136,6 @@
     }
 
 	$(window).on('resize',resized)
-
 
 </script>
 
