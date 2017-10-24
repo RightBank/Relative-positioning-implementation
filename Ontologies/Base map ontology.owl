@@ -29,31 +29,16 @@ Sweden
 Email: weiming.huang@nateko.lu.se</Literal>
     </Annotation>
     <Declaration>
-        <DataProperty IRI="#attribute"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasGeometry_river_50k"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Background_Feature"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_road_100k"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="#shape"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_lake_250k"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasGeometry_river_100k"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasGeometry_lake_10k"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasLowerBound"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="#hasScale"/>
@@ -62,7 +47,58 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <DataProperty IRI="#featureTheme"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#river_scale_2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#river_scale_0"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_river_250k"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#road_scale_3"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_lake_100k"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#road_scale_1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lake_scale_2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_cadastre"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_river_10k"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lake_scale_0"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#attribute"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_road_100k"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_lake_250k"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_lake_10k"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasLowerBound"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#river_scale_3"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#hasUpperBound"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#river_scale_1"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasScale"/>
@@ -71,36 +107,221 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <Class IRI="#Scale"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_road_250k"/>
+        <NamedIndividual IRI="#cadastre_scale"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_river_250k"/>
+        <ObjectProperty IRI="#hasGeometry_road_250k"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasGeometry_road_10k"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_lake_100k"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasGeometry_lake_50k"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_cadastre"/>
+        <NamedIndividual IRI="#lake_scale_3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#road_scale_2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometry_road_50k"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#FID"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_river_10k"/>
+        <NamedIndividual IRI="#lake_scale_1"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_road_50k"/>
+        <NamedIndividual IRI="#road_scale_0"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#Background_Feature"/>
         <Class IRI="http://www.opengis.net/ont/geosparql#Feature"/>
     </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#cadastre_scale"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#lake_scale_0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#lake_scale_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#lake_scale_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#lake_scale_3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#river_scale_0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#river_scale_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#river_scale_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#river_scale_3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#road_scale_0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#road_scale_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#road_scale_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Scale"/>
+        <NamedIndividual IRI="#road_scale_3"/>
+    </ClassAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#cadastre_scale"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#cadastre_scale"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">20000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#lake_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#lake_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">10000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#lake_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">10000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#lake_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">20000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#lake_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">20000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#lake_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">50000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#lake_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">50000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#lake_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">100000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#river_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#river_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#river_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#river_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">20000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#river_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">20000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#river_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">50000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#river_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">50000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#river_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">100000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#road_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#road_scale_0"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#road_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#road_scale_1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">15000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#road_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">15000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#road_scale_2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">30000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasLowerBound"/>
+        <NamedIndividual IRI="#road_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">30000.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasUpperBound"/>
+        <NamedIndividual IRI="#road_scale_3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">100000.0</Literal>
+    </DataPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasGeometry_cadastre"/>
         <ObjectProperty IRI="http://www.opengis.net/ont/geosparql#hasGeometry"/>
@@ -222,6 +443,71 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#featureTheme</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">To specify the theme of background feature, e.g. river, lake, road etc.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_cadastre</IRI>
+        <IRI>#cadastre_scale</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_lake_100k</IRI>
+        <IRI>#lake_scale_2</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_lake_10k</IRI>
+        <IRI>#lake_scale_0</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_lake_250k</IRI>
+        <IRI>#lake_scale_3</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_lake_50k</IRI>
+        <IRI>#lake_scale_1</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_river_100k</IRI>
+        <IRI>#river_scale_2</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_river_10k</IRI>
+        <IRI>#river_scale_0</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_river_250k</IRI>
+        <IRI>#river_scale_3</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_river_50k</IRI>
+        <IRI>#river_scale_1</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_road_100k</IRI>
+        <IRI>#road_scale_2</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_road_10k</IRI>
+        <IRI>#road_scale_0</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_road_250k</IRI>
+        <IRI>#road_scale_3</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="#hasScale"/>
+        <IRI>#hasGeometry_road_50k</IRI>
+        <IRI>#road_scale_1</IRI>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
