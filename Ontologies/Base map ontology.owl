@@ -125,10 +125,10 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <NamedIndividual IRI="#road_scale_2"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometry_road_50k"/>
+        <DataProperty IRI="#FID"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#FID"/>
+        <ObjectProperty IRI="#hasGeometry_road_50k"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#lake_scale_1"/>
@@ -210,12 +210,12 @@ Email: weiming.huang@nateko.lu.se</Literal>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasUpperBound"/>
         <NamedIndividual IRI="#lake_scale_0"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">10000.0</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasLowerBound"/>
         <NamedIndividual IRI="#lake_scale_1"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">10000.0</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8000.0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasUpperBound"/>
