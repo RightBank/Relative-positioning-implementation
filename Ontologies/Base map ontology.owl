@@ -374,6 +374,14 @@ Email: weiming.huang@nateko.lu.se</Literal>
         <ObjectProperty IRI="#hasGeometry_road_50k"/>
         <ObjectProperty IRI="http://www.opengis.net/ont/geosparql#hasGeometry"/>
     </SubObjectPropertyOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasScale"/>
+        <Class IRI="http://www.opengis.net/ont/sf#Geometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasScale"/>
+        <Class IRI="#Scale"/>
+    </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="#FID"/>
         <DataProperty IRI="#attribute"/>

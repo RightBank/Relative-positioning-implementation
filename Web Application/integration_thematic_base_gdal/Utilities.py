@@ -105,13 +105,12 @@ def GeometryforClosestScaleRange (endpoint, background_feature_uri, vertice_orde
                     select (max(?ub) as ?max)
                        where{
                          <%s> ?p ?geom.
-                         ?p rdfs:subPropertyOf geosparql:hasGeometry.
-                         ?p base_map:hasScale ?scale.
+                         ?geom base_map:hasScale ?scale.
                          ?scale base_map:hasUpperBound ?ub.
                          }
                     }
 
-                    ?p base_map:hasScale ?scale.
+                    ?geom base_map:hasScale ?scale.
                     ?scale base_map:hasUpperBound ?max.
                      ?geom geosparql:asWKT ?wkt
 
@@ -149,8 +148,7 @@ def GeometryforBackgroundFeature (endpoint, background_feature_uri, vertice_orde
         SELECT ?wkt
             WHERE
             { <%s> ?p ?geom.
-            ?p rdfs:subPropertyOf geosparql:hasGeometry.
-            ?p base_map:hasScale ?scale.
+            ?geom base_map:hasScale ?scale.
             ?scale base_map:hasUpperBound ?ub.
             ?scale base_map:hasLowerBound ?lb.
              ?geom geosparql:asWKT ?wkt
