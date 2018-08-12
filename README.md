@@ -7,15 +7,15 @@ Please note that in our implementation, we adopted [Stardog](https://www.stardog
 ## Content
 The implementation comprises several modules, and each module is in a separated folder:
 Ontologies: two ontologies, i.e. base map ontology and thematic data ontology;
-Web Application: web application for real time process where the thematic featrues are assembled, including the server and client sides; The open source Python web framework – [Django]( https://www.djangoproject.com/) is used.
+Web Application: web application for real time process where the thematic featrues are assembled, including the server and client sides; The open source Python web framework â€“ [Django]( https://www.djangoproject.com/) is used.
 RDF convertor for base maps: converting shapefiles of base maps to RDF in Turtle;
 Thematic data digitalisation tool: an ArcGIS Python addin where the thematic features are created using relative positioning.
 ## Contact:
-	Weiming huang
+	Weiming Huang
 	GIS Centre
 	Department of Physical Geography and Ecosystems Science
 	Lund University
-	Sölvegatan 12
+	SÃ¶lvegatan 12
 	SE-223 62 Lund
 	Sweden
 	Email: weiming.huang@nateko.lu.se
